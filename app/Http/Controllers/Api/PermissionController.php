@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+use App\Models\crmPermission;
+
+class PermissionController extends Controller
+{
+    public function index(Request $request){
+    	return crmPermission::orderBy('name', 'asc')->get();
+    }
+
+    public function create(Request $request){
+    	$this->validate($request, [
+    		'name' => 'required|unique:crm_permissions',
+            
+			// 'description' => 'required',
+    	]);
+    	return crmPermission::create([
+    		'name' => $request->name,
+            'guard_name' => 'sanctum'
+
+			// 'description' => $request->description,
+    		// 'guard_name' => 'api'
+    	]);
+    }
+
+    public function show(Request $request, $id){
+    	return crmPermission::find($id);
+    }
+
+    public function update(Request $request, $id){
+    	$this->validate($request, [
+    		'name' => 'required|unique:crm_permissions',
+			// 'permissions' => 'required',
+
+    	]);
+    	crmPermission::where('id', $id)->update([
+    		'name' => $request->name,
+			// 'permissions' => $request->permissions,
+    		// 'guard_name' => 'api'
+    	]);
+
+    	return crmPermission::find($id);
+    }
+
+    public function delete(Request $request, $id){
+    	return crmPermission::where('id', $id)->delete();
+    }
+}
