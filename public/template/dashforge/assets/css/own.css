@@ -1,0 +1,7 @@
+.ivu-modal-header {
+	border-bottom: 1px solid rgba(72, 94, 144, 0.16) !important;
+}
+
+.ivu-modal-footer {
+	border-top: 1px solid rgba(72, 94, 144, 0.16) !important;
+}
